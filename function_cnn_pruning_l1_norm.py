@@ -196,9 +196,9 @@ def my_delete_filters(model):
 # Run this cell if you don't have the weights saved
 model_new = my_delete_filters(my_model)
 model_new.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-model_new.save('drive/My Drive/ColabNotebooks/just_after_pruning.h5')
+model_new.save('drive/My Drive/Colab Notebooks/just_after_pruning.h5')
 
-model_new = load_model('drive/My Drive/ColabNotebooks/just_after_pruning.h5')
+model_new = load_model('drive/My Drive/Colab Notebooks/just_after_pruning.h5')
 model_new.summary()
 
 score_train = model_new.evaluate(x_train,y_train) 
