@@ -314,7 +314,6 @@ from kerassurgeon import identify
 from kerassurgeon.operations import delete_channels,delete_layer
 from kerassurgeon import Surgeon
 
-# model= load_model('drive/My Drive/Colab Notebooks/model2_before_pruning.h5')
 model = my_vgg.model
 batch_size = 128
 maxepoches = 250
@@ -342,14 +341,5 @@ while abs(max_val_acc - validation_accuracy)  <=  0.05:
     validation_accuracy = model.evaluate(x_test,y_test)[1]
     print("--->",validation_accuracy)
     count+=1
-
-my_model_vgg_new = my_delete_filters(my_model_vgg,True)
-
-my_model_vgg.evaluate(x_test,y_test)[1]
-
-my_model_vgg_new = my_delete_filters(my_model_vgg_new,False)
-
-my_model_vgg_new = my_delete_filters(my_model_vgg_new,False)
-
 
 
