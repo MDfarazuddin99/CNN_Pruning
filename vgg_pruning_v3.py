@@ -427,7 +427,7 @@ def my_delete_filters(model,first_time):
     model_new = surgeon.operate()
     return model_new
 
-!pip install kerassurgeon
+# !pip install kerassurgeon
 from kerassurgeon import identify 
 from kerassurgeon.operations import delete_channels,delete_layer
 from kerassurgeon import Surgeon
