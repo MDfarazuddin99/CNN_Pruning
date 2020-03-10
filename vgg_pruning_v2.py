@@ -16,6 +16,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D, BatchNormalization
 from keras import optimizers
 import numpy as np
+from keras.callbacks import ModelCheckpoint
 from keras.layers.core import Lambda
 from keras import backend as K
 from keras import regularizers
@@ -33,7 +34,7 @@ class cifar10vgg:
         if train:
             self.model, self.history = self.train(self.model)
         else:
-            self.model.load_weights('drive/My Drive/Colab Notebooks/cifar10vgg.h5')
+            self.model.load_weights('/home/shabbeer/Research/Pruning/cifar10vgg.h5')
 
 
     def build_model(self):
@@ -174,7 +175,7 @@ class cifar10vgg:
             return learning_rate * (0.5 ** (epoch // lr_drop))
         reduce_lr = keras.callbacks.LearningRateScheduler(lr_scheduler)
 
-        save_model = ModelCheckpoint('drive/My Drive/Colab Notebooks/pruned_cifarvgg.h5', monitor='val_acc', verbose=0, save_best_only=True, save_weights_only=False, mode='auto', period=1)
+        save_model = ModelCheckpoint('/home/shabbeer/Research/Pruning/pruned_cifarvgg.h5', monitor='val_acc', verbose=0, save_best_only=True, save_weights_only=False, mode='auto', period=1)
 
         #data augmentation
         datagen = ImageDataGenerator(
@@ -424,7 +425,7 @@ def my_delete_filters(model,first_time):
     model_new = surgeon.operate()
     return model_new
 
-!pip install kerassurgeon
+# !pip install kerassurgeon
 from kerassurgeon import identify 
 from kerassurgeon.operations import delete_channels,delete_layer
 from kerassurgeon import Surgeon
@@ -444,7 +445,7 @@ lr_drop = 20
 sgd = optimizers.SGD(lr=learning_rate, decay=lr_decay, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd,metrics=['accuracy'])
 
-validation_accuracy = history.history(max['val_acc'])
+validation_accuracy = max(history.history['val_acc'])
 print(validation_accuracy)
 max_val_acc = validation_accuracy
 count = 0
@@ -462,7 +463,7 @@ while max_val_acc <= validation_accuracy   :
         model = my_delete_filters(model,False)  
 
     model = my_vgg.train(model)
-    validation_accuracy = history.history(max['val_acc'])
+    validation_accuracy = max(history.history['val_acc'])
     print("VALIDATION ACCURACY AFTER {} ITERATIONS = {}".format(count,validation_accuracy))
     count+=1
 
