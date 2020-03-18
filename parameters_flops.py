@@ -30,7 +30,7 @@ def count_conv_params_flops(conv_layer):
 
     n_conv_params_total = conv_layer.count_params()
 
-    conv_flops = 2 * n_conv_params_total * n_cells_total
+    conv_flops =  n_conv_params_total * n_cells_total
 
  
 
@@ -44,7 +44,7 @@ def count_dense_params_flops(dense_layer):
 
     n_dense_params_total = dense_layer.count_params()
 
-    dense_flops = 2 * n_dense_params_total
+    dense_flops =  n_dense_params_total
 
 
     return n_dense_params_total, dense_flops
